@@ -67,13 +67,14 @@
             group = new THREE.Group(); //Grupo
 
             //Forma del objeto
-            var geometry = new THREE.SphereGeometry(10, 32, 32);
+            var geometry = new THREE.SphereGeometry(10, 16, 16);
             for (var i = 0; i < 100; i++) {
                 var material = new THREE.MeshBasicMaterial( //Propiedades de la esfera
                     {
                         color: Math.random() * 0xffff00,
                         opacity: .3,
-                        transparent: true
+                        transparent: true,
+                        wireframe : !true
                     });
                 var sphere = new THREE.Mesh(geometry, material);
 
@@ -81,9 +82,9 @@
                 sphere.position.y = Math.random() * 200 - 100;
                 sphere.position.z = Math.random() * 200 - 100;
 
-                sphere.rotation.x = Math.random() * 200 - 100;
-                sphere.rotation.y = Math.random() * 200 - 100;
-                sphere.rotation.z = Math.random() * 200 - 100;
+                //sphere.rotation.x = Math.random() * 200 - 100;
+                //sphere.rotation.y = Math.random() * 200 - 100;
+                //sphere.rotation.z = Math.random() * 200 - 100;
                 //Tamaño de la esfera
                 sphere.scale.x = sphere.scale.y = sphere.scale.z = Math.random() + 0.5;
 
@@ -162,9 +163,15 @@
         }
         function animate() {
             requestAnimationFrame(animate);
+
+            //Rotacion
+            for (var i = 0; i < objects.length; i++) {
+                if(objects[i] !== undefined)
+                    objects[i].rotation.y += Math.PI / 100;
+            }
+
             controls.update();
             render();
-            renderer.render(scene, camera);
         };
         function render() {
             var timer = 0.0001 * Date.now();
